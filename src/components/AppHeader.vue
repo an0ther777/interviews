@@ -13,7 +13,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const items = ref([
+interface IMenuItem {
+    label: string,
+    icon: string, 
+    path: string,
+}
+
+const items = ref<IMenuItem[]>([
     {
         label: 'Авторизация',
         icon: 'pi pi-user',
@@ -42,11 +48,14 @@ const items = ref([
   margin: 30px 30px;
   height: 50px;
   width: 90%;
-  border: 3px solid rgb(230, 230, 230);
+  border: 3px solid rgb(219, 219, 219);
   background-color: rgb(230, 230, 230);
   border-radius: 20px;
 }
 #link{
+    border-radius: 15px;
+    margin-top: 5px;
+    border: 3px solid rgb(219, 219, 219);
     transition: all 0.3s;
 }
 #link:hover{
@@ -54,5 +63,10 @@ const items = ref([
 }
 .menu-exit {
   cursor: pointer;
+}
+:deep(.p-menubar-root-list) {
+  background-color: rgb(238, 238, 238) !important;
+  border-radius: 15px !important;
+  padding: 10px !important;
 }
 </style>
