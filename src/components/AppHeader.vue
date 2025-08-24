@@ -11,7 +11,7 @@
     </template>
     <template #end>
         <span v-if="userStore.userId" 
-            @click="userStore.userId = ''" 
+            @click="signOutMethod" 
             class="flex align-item-center cursor-pointer justify-content-center menu exit">
             <span class="pi pi-sign-out p-p-mebuitem-icon">
                 <span class="mi-2 p-2">Выход</span>
@@ -25,8 +25,11 @@
 import { ref, computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { getAuth, signOut } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
+const router = useRouter()
 
 interface IMenuItem {
   label: string
@@ -61,6 +64,11 @@ const items = ref<IMenuItem[]>([
     show: computed((): boolean => !!userStore.userId)
   }
 ])
+
+const signOutMethod = async (): Promise<void> => {
+  await signOut(getAuth())
+  router.push('/auth')
+}
 </script>
 
 <style scoped>
@@ -71,11 +79,11 @@ const items = ref<IMenuItem[]>([
   border: 3px solid rgb(219, 219, 219);
   background-color: rgb(230, 230, 230);
   border-radius: 20px;
+  justify-content: center;
 }
 #link{
     border-radius: 15px;
     margin-top: 5px;
-    border: 3px solid rgb(219, 219, 219);
     transition: all 0.3s;
 }
 #link:hover{
@@ -87,6 +95,6 @@ const items = ref<IMenuItem[]>([
 :deep(.p-menubar-root-list) {
   background-color: rgb(238, 238, 238) !important;
   border-radius: 15px !important;
-  padding: 10px !important;
+
 }
 </style>

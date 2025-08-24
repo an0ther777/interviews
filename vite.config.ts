@@ -10,6 +10,17 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  optimizeDeps: {
+    exclude: ['primevue'],
+    include: [
+      'primevue/toast',
+      'primevue/toastservice',
+      'primevue/usetoast',
+      'primevue/button',
+      'primevue/inputtext',
+      'primevue/menubar'
+    ]
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
