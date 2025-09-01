@@ -2,7 +2,7 @@
    <app-menubar :model="items" class="custom-menu">
     <template #item="{ item, props }">
         <template v-if="item.show">
-            <router-link :to="item.path" class="flex items-center p-2" id="link" 
+            <router-link :to="item.path" class="flex items-center p-2" id="link"
                 v-bind="props.action">
                 <span :class="item.icon" class="p-menuitem-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
@@ -10,8 +10,8 @@
         </template>
     </template>
     <template #end>
-        <span v-if="userStore.userId" 
-            @click="signOutMethod" 
+        <span v-if="userStore.userId"
+            @click="signOutMethod"
             class="flex align-item-center cursor-pointer justify-content-center menu exit">
             <span class="pi pi-sign-out p-p-mebuitem-icon">
                 <span class="mi-2 p-2">Выход</span>
@@ -82,19 +82,18 @@ const signOutMethod = async (): Promise<void> => {
   justify-content: center;
 }
 #link{
-    border-radius: 15px;
-    margin-top: 5px;
-    transition: all 0.3s;
+  border-radius: 15px;
+  margin-top: 5px;
+  transition: all 0.3s;
 }
 #link:hover{
-    background-color:  rgb(219, 219, 219);
+  background-color:  rgb(219, 219, 219);
 }
 .menu-exit {
   cursor: pointer;
 }
 :deep(.p-menubar-root-list) {
-  background-color: rgb(238, 238, 238) !important;
+  background-color: rgb(230, 230, 230) !important;
   border-radius: 15px !important;
-
 }
 </style>
