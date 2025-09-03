@@ -38,9 +38,10 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import type { IInterview } from '@/interfaces';
 import { v4 as uuidv4 } from "uuid"
-import { getAuth } from 'firebase/auth';
+import { useUserStore } from '@/stores/user';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
+const userStore = useUserStore()
 const db = getFirestore()
 const router = useRouter()
 
@@ -67,10 +68,9 @@ const addNewInterview = async (): Promise<void> => {
     createAr: new Date()
   }
 
-  const userId = getAuth().currentUser?.uid
-  if(userId) {
-    await setDoc(doc(db, `users/${userId}/interviews`, payload.id)
-      , payload).then(() => {
+  if(userStore.userId) {
+    await setDoc(doc(db, `users/${userStore.userId}/interviews`, payload.id)
+      ,payload).then(() => {
           router.push('/list')
       })
 
