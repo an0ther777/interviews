@@ -123,7 +123,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useUserStore } from '@/stores/user'
-import type { IInterview, IStage } from '@/interfaces'
+import type { IInterview } from '@/interfaces'
 
 
 const db = getFirestore()
@@ -140,7 +140,6 @@ const getData = async (): Promise<void> => {
   const docSnap = await getDoc(docref)
   interview.value = docSnap.data() as IInterview
   isLoading.value = false
-  console.log(interview.value)
 }
 
 const saveInterview = async (): Promise<void> => {

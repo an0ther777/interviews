@@ -2,23 +2,57 @@
   <app-dialog
     :style="{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     border: '1px solid #666',}"/>
+
   <app-progress v-if="isLoading" />
+
   <app-message v-else-if="!isLoading && !interviews.length" severity="info">
     Нет добавленных собеседований</app-message>
+
   <div v-else>
     <h1>Список собеседований</h1>
+
     <app-datatable :value="interviews">
       <app-column field="company" header="Компания"></app-column>
       <app-column field="hrName" header="Имя HR"></app-column>
+
       <app-column field="vacancyLink" header="Вакансия">
         <template #body="slotProps">
           <a :href="slotProps.data.vacancyLink" target="_blank">
-            {{ slotProps.data.vacancyLink }}</a>
+            Ссылка на вакансию</a>
         </template>
       </app-column>
+
+      <app-column header="Пройденные этапы">
+        <template #body="slotProps">
+          <span v-if="!slotProps.data.stages">Не заполнено</span>
+          <div class="interview-stages" style="color: green;">
+            <app-badge v-for="(stage, i) in slotProps.data.stages"
+              :key="i" :value="i+1" rounded v-tooltip.top="stage.name"/>
+          </div>
+        </template>
+      </app-column>
+
+      <app-column header="Зарплатная вилка">
+        <template #body="slotProps">
+          <span v-if="!slotProps.data.salaryFrom">Не заполнено</span>
+          <span v-else>{{ slotProps.data.salaryFrom }} - {{ slotProps.data.salaryTo }}</span>
+        </template>
+      </app-column>
+
+      <app-column header="Результат">
+        <template #body="slotProps">
+          <span v-if="!slotProps.data.result">Не заполнено</span>
+          <template v-else>
+            <app-badge style="border-radius: 5px; padding: 5px;" :severity="slotProps.data.result === 'Offer' ? 'success' : 'danger'"
+              :value="slotProps.data.result === 'Offer' ? 'Оффер' : 'Отказ'"></app-badge>
+          </template>
+        </template>
+      </app-column>
+
       <app-column header="Контакты">
         <template #body="slotProps">
           <div class="contacts">
+
             <a
               v-if="slotProps.data.contactTelegram"
               :href="`https://t.me/${slotProps.data.contactTelegram}`"
@@ -27,6 +61,7 @@
             >
               <span class="contacts__icon pi pi-telegram"></span>
             </a>
+
             <a
               v-if="slotProps.data.contactWhatsApp"
               :href="`https://wa.me/${slotProps.data.contactWhatsApp}`"
@@ -35,6 +70,7 @@
             >
               <span class="contacts__icon pi pi-whatsapp"></span>
             </a>
+
             <a
               v-if="slotProps.data.contactPhone"
               :href="`https://tel:${slotProps.data.contactPhone}`"
@@ -46,6 +82,7 @@
           </div>
         </template>
       </app-column>
+
       <app-column>
         <template #body="slotProps">
           <div class="flex gap-2">
@@ -60,6 +97,7 @@
           </div>
         </template>
       </app-column>
+
     </app-datatable>
   </div>
 </template>
