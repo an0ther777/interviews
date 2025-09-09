@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "chart.js": "^4.5.0",
     "firebase": "^12.1.0",
     "pinia": "^3.0.3",
     "primeflex": "^4.0.0",
