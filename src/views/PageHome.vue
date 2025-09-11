@@ -69,8 +69,8 @@ const addNewInterview = async (): Promise<void> => {
   }
 
   if(userStore.userId) {
-    await setDoc(doc(db, `users/${userStore.userId}/interviews`, payload.id)
-      ,payload).then(() => {
+    await setDoc(doc(db, `users/${userStore.userId}/interviews`, payload.id),
+      payload).then(() => {
           router.push('/list')
       })
 
